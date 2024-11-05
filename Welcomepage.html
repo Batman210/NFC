@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solventeum</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .message, .instructions {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .instructions {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to Solventeum</h1>
+        <input type="text" id="codeInput" placeholder="Enter 4-digit code" maxlength="4">
+        <div class="message" id="message"></div>
+        <div class="instructions" id="instructionsBox">Instruction for use</div>
+    </div>
+
+    <script>
+        const codes = {
+            "0000": "Leak",
+            "0001": "Blockage",
+            "0002": "Canister Full",
+            "0003": "Therapy Expired"
+        };
+
+        document.getElementById('codeInput').addEventListener('input', function() {
+            const code = this.value;
+            const messageDiv = document.getElementById('message');
+            const instructionsDiv = document.getElementById('instructionsBox');
+
+            if (code.length === 4) {
+                if (codes[code]) {
+                    messageDiv.textContent = codes[code];
+                    instructionsDiv.style.display = 'block';  // Show the instructions box
+                } else {
+                    messageDiv.textContent = "Invalid code";
+                    instructionsDiv.style.display = 'none';  // Hide the instructions box
+                }
+            } else {
+                messageDiv.textContent = "";
+                instructionsDiv.style.display = 'none';  // Hide the instructions box if code isn't complete
+            }
+        });
+    </script>
+
+</body>
+</html>
