@@ -21,10 +21,14 @@
             font-size: 3em;
             margin-bottom: 20px;
         }
-        input[type="text"] {
-            width: 200px;
-            padding: 10px;
+        .code-buttons {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
             font-size: 1em;
+            margin: 5px;
+            cursor: pointer;
         }
         .message, .instructions {
             margin-top: 20px;
@@ -38,15 +42,35 @@
             background-color: #fff;
             display: none; /* Initially hidden */
         }
+        .video-container {
+            margin-top: 20px;
+            display: none; /* Hidden initially */
+        }
+        iframe {
+            width: 560px;
+            height: 315px;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Welcome to Solventeum</h1>
-        <input type="text" id="codeInput" placeholder="Enter 4-digit code" maxlength="4">
+        
+        <!-- Code Selection Buttons -->
+        <div class="code-buttons">
+            <button onclick="displayInfo('0000')">0000</button>
+            <button onclick="displayInfo('0001')">0001</button>
+            <button onclick="displayInfo('0002')">0002</button>
+            <button onclick="displayInfo('0003')">0003</button>
+        </div>
+        
         <div class="message" id="message"></div>
         <div class="instructions" id="instructionsBox">Instruction for use</div>
+        <div class="video-container" id="videoContainer">
+            <iframe id="videoFrame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </div>
 
     <script>
@@ -57,24 +81,21 @@
             "0003": "Therapy Expired"
         };
 
-        document.getElementById('codeInput').addEventListener('input', function() {
-            const code = this.value;
+        function displayInfo(code) {
             const messageDiv = document.getElementById('message');
             const instructionsDiv = document.getElementById('instructionsBox');
+            const videoContainer = document.getElementById('videoContainer');
 
-            if (code.length === 4) {
-                if (codes[code]) {
-                    messageDiv.textContent = codes[code];
-                    instructionsDiv.style.display = 'block';  // Show the instructions box
-                } else {
-                    messageDiv.textContent = "Invalid code";
-                    instructionsDiv.style.display = 'none';  // Hide the instructions box
-                }
+            if (codes[code]) {
+                messageDiv.textContent = codes[code];
+                instructionsDiv.style.display = 'block';  // Show the instructions box
+                videoContainer.style.display = 'block';   // Show the video
             } else {
-                messageDiv.textContent = "";
-                instructionsDiv.style.display = 'none';  // Hide the instructions box if code isn't complete
+                messageDiv.textContent = "Invalid code";
+                instructionsDiv.style.display = 'none';   // Hide the instructions box
+                videoContainer.style.display = 'none';    // Hide the video
             }
-        });
+        }
     </script>
 
 </body>
